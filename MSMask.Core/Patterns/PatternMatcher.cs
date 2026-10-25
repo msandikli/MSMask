@@ -1,5 +1,4 @@
-﻿using MSMask.Core.Patterns.Rules;
-using MSMask.Core.Rules;
+﻿using MSMask.Core.Rules;
 
 namespace MSMask.Core.Patterns
 {
@@ -16,12 +15,18 @@ namespace MSMask.Core.Patterns
         /// <summary>
         /// Gets the default rules, in the order they are run.
         /// </summary>
-        /// <value>The rules for IBAN, credit card and TCKN.</value>
+        /// <value>
+        /// IBAN, credit card and TCKN first, then API keys, e-mail and phone rules.
+        /// The order does not decide overlaps (priority does), but it keeps error reports easy to read.
+        /// </value>
         public static IReadOnlyList<PatternRule> DefaultRules { get; } =
         [
             new TurkishIBANRule(),
             new CreditCardRule(),
             new TCKNRule(),
+            .. ApiKeyRules.Create(),
+            .. EmailRules.Create(),
+            .. PhoneRules.Create(),
         ];
 
         /// <summary>

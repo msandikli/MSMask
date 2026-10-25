@@ -9,7 +9,7 @@ namespace MSMask.Core.Rules
     /// </summary>
     /// <remarks>
     /// The number must not touch another digit or an underscore on either side. A number with a dash
-    /// on both sides is skipped because it is part of a token (<c>xoxb-557•••••••••••••...</c>).
+    /// on both sides is skipped because it is part of a token (<c>xoxb-55703718882-0312...</c>).
     /// A dash on one side only is allowed, because OCR can read <c>tckn=...</c> as <c>tckn-...</c>.
     /// </remarks>
     public sealed class TCKNRule : PatternRule

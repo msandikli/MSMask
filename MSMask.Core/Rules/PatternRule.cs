@@ -86,7 +86,7 @@ namespace MSMask.Core.Rules
         /// <param name="options">Extra options, for example <see cref="RegexOptions.IgnoreCase"/>.</param>
         /// <returns>The compiled regular expression.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="pattern"/> is not a valid regular expression.</exception>
-        protected static Regex CreateRegex(string pattern, RegexOptions options = RegexOptions.None) =>
+        protected internal static Regex CreateRegex(string pattern, RegexOptions options = RegexOptions.None) =>
             new(pattern, options | RegexOptions.CultureInvariant | RegexOptions.Compiled, MatchTimeout);
     }
 }
