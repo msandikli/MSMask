@@ -4,8 +4,6 @@ using System.Text;
 
 namespace MSMask.Core.Models
 {
-    namespace SsMask.Core;
-
     /// <summary>
     /// Represents an axis-aligned rectangle in image pixel coordinates.
     /// </summary>

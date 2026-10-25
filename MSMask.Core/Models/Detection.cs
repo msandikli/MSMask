@@ -1,6 +1,4 @@
-﻿using MSMask.Core.Models.SsMask.Core;
-
-namespace MSMask.Core.Models
+﻿namespace MSMask.Core.Models
 {
     /// <summary>
     /// Represents a piece of sensitive data found in an image.
