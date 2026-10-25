@@ -77,15 +77,21 @@ namespace MSMask.Core.Tests
         }
 
         /// <summary>
-        /// With check digits validated, only the real card number is reported. Without validation, a
-        /// longer 4-4-4-4-3 candidate that reaches into the following phone number wins instead.
+        /// With check digits validated, the real card number and the phone number after it are reported.
+        /// Without validation, a longer 4-4-4-4-3 candidate that reaches into the phone number wins
+        /// (card priority 0 beats phone priority 5), and the phone number is lost.
         /// This shows why the checksum matters.
         /// </summary>
         [Fact]
         public void FindMatches_CardFollowedByDigits_ChecksumPicksRealCard()
         {
             const string text = "Kart 4111 1111 1111 1111 0532 123 45 67";
-            Assert.Equal([(Kinds.KrediKarti, "4111 1111 1111 1111")], KindsTexts(text, checksum: true));
+            var expected = new List<(string, string)>
+            {
+                (Kinds.KrediKarti, "4111 1111 1111 1111"),
+                (Kinds.Telefon, "0532 123 45 67"),
+            };
+            Assert.Equal(expected, KindsTexts(text, checksum: true));
             Assert.Equal([(Kinds.KrediKarti, "1111 1111 1111 0532 123")], KindsTexts(text, checksum: false));
         }
 
@@ -121,11 +127,13 @@ namespace MSMask.Core.Tests
 
         /// <summary>
         /// An 11-digit group with a dash on both sides is part of a token, not an identity number.
+        /// The whole token is reported as an API key instead.
         /// </summary>
         [Fact]
-        public void FindMatches_TcknInsideToken_ReturnsEmpty()
+        public void FindMatches_TcknInsideToken_IsPartOfApiKey()
         {
-            Assert.Empty(KindsTexts("SLACK_BOT_TOKEN=xoxb-557••••••••••••••••••••••••••••••••••"));
+            Assert.Equal([(Kinds.ApiAnahtari, "xoxb-55703718882-031280315363-P21nPrwwd3Qa")],
+                KindsTexts("SLACK_BOT_TOKEN=xoxb-55703718882-031280315363-P21nPrwwd3Qa"));
         }
 
         /// <summary>
