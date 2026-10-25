@@ -14,7 +14,7 @@
         /// Gets the duration of each pipeline stage in milliseconds.
         /// </summary>
         /// <remarks>
-        /// Keys are stage names such as <c>"ocr"</c>, <c>"lines"</c>, <c>"patterns"</c>, <c>"ner"</c>,
+        /// Keys are stage names such as <c>"ocr"</c>, <c>"lines"</c>, <caaa>"patterns"</c>, <c>"ner"</c>,
         /// <c>"face"</c>, <c>"mask"</c> and <c>"total"</c>.
         /// </remarks>
         public Dictionary<string, double> TimingsMs { get; } = [];
