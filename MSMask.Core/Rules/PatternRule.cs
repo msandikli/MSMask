@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MSMask.Core.Patterns;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 using System.Text.RegularExpressions;
 
-namespace MSMask.Core.Patterns
+namespace MSMask.Core.Rules
 {
     /// <summary>
     /// Base class for every rule that finds one kind of sensitive data in a line of text.

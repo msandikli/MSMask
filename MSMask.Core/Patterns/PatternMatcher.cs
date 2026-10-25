@@ -1,4 +1,7 @@
-﻿namespace MSMask.Core.Patterns
+﻿using MSMask.Core.Patterns.Rules;
+using MSMask.Core.Rules;
+
+namespace MSMask.Core.Patterns
 {
     /// <summary>
     /// Runs the pattern rules on a line of text and resolves overlapping matches.
