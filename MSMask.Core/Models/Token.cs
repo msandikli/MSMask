@@ -1,4 +1,4 @@
-﻿using MSMask.Core.Models.SsMask.Core;
+﻿using MSMask.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
