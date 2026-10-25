@@ -9,7 +9,7 @@ namespace MSMask.Core.Patterns
     /// </summary>
     /// <remarks>
     /// The range is half-open: <see cref="Start"/> is included and <see cref="End"/> is excluded,
-    /// so the covered text is <c>text[Start..End]</c>. This matches C# ranges and Python slices.
+    /// so the covered text is <c>text[Start..End]</c>, exactly like a C# range.
     /// </remarks>
     /// <param name="Start">The index of the first character in the range.</param>
     /// <param name="End">The index just after the last character in the range.</param>

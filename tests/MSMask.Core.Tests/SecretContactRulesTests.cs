@@ -6,7 +6,6 @@ namespace MSMask.Core.Tests
 {
     /// <summary>
     /// Unit tests for the API key, e-mail and phone rules.
-    /// Cases are ported from the Python reference (tests/test_patterns.py).
     /// </summary>
     public class SecretContactRulesTests
     {

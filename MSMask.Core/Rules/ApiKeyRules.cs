@@ -44,8 +44,8 @@ namespace MSMask.Core.Rules
         /// </summary>
         /// <remarks>
         /// With <see cref="RegexOptions.IgnoreCase"/> and <see cref="RegexOptions.CultureInvariant"/>, .NET
-        /// matches "i" only with "I". The Python reference matches "ı" and "İ" too, and the Turkish OCR
-        /// model does produce them, so they are listed explicitly.
+        /// matches "i" only with "I". The Turkish OCR model can read "i" as "ı" or "İ" inside key names,
+        /// so these letters are listed explicitly.
         /// </remarks>
         private const string LetterI = "[iıİ]";
 

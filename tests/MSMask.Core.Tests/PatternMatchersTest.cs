@@ -7,7 +7,6 @@ namespace MSMask.Core.Tests
 {
     /// <summary>
     /// Unit tests for the IBAN, card and TCKN rules and for <see cref="PatternMatcher"/>.
-    /// Cases are ported from the Python reference (tests/test_patterns.py).
     /// </summary>
     public class PatternMatcherTests
     {
