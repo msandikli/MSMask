@@ -95,7 +95,7 @@ namespace MSMask.Core
             int odd = d[0] + d[2] + d[4] + d[6] + d[8];
             int even = d[1] + d[3] + d[5] + d[7];
             // The difference can be negative. C#'s % keeps the sign (-29 % 10 == -9), while the rule
-            // needs the mathematical modulo (Python: -29 % 10 == 1), hence the extra "+ 10) % 10".
+            // needs the mathematical modulo (-29 mod 10 == 1), hence the extra "+ 10) % 10".
             int tenth = ((odd * 7 - even) % 10 + 10) % 10;
             if (tenth != d[9])
             {

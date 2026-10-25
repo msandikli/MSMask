@@ -5,7 +5,7 @@ using System.Text;
 namespace MSMask.Core.Tests
 {
     /// <summary>
-    /// Unit tests for <see cref="Validators"/>. Cases are ported from the Python reference (tests/test_validators.py).
+    /// Unit tests for <see cref="Validators"/>.
     /// </summary>
     public class ValidatorsTests
     {
