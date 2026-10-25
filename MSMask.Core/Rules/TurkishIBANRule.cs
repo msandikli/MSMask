@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using MSMask.Core.Models;
 
-namespace MSMask.Core.Patterns
+namespace MSMask.Core.Rules
 {
     /// <summary>
     /// Finds Turkish IBANs (TR + 2 check digits + 22 digits) and tolerates common OCR mistakes.

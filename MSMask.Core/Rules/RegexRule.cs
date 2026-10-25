@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MSMask.Core.Patterns;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 using System.Text.RegularExpressions;
 
-namespace MSMask.Core.Patterns
+namespace MSMask.Core.Rules
 {
     /// <summary>
     /// A pattern rule driven by a regular expression, with an optional check-digit validator.

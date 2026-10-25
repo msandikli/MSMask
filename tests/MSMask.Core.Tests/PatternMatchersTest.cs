@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using MSMask.Core.Models;
 using MSMask.Core.Patterns;
+using MSMask.Core.Rules;
 
 namespace MSMask.Core.Tests
 {

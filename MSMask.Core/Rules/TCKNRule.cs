@@ -1,7 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using MSMask.Core.Models;
+using MSMask.Core.Patterns;
 
-namespace MSMask.Core.Patterns
+namespace MSMask.Core.Rules
 {
     /// <summary>
     /// Finds Turkish national identity numbers: 11 digits, not starting with 0, with valid check digits.

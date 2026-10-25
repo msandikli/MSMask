@@ -1,7 +1,8 @@
 ﻿using MSMask.Core.Models;
+using MSMask.Core.Patterns;
 using System.Text.RegularExpressions;
 
-namespace MSMask.Core.Patterns
+namespace MSMask.Core.Rules
 {
     /// <summary>
     /// Finds payment card numbers that are written in a real card layout and pass the Luhn check.
