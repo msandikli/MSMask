@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/tests/">
+    <Project Path="tests/MSMask.Core.Tests/MSMask.Core.Tests.csproj" />
+  </Folder>
+  <Project Path="MSMask.Core/MSMask.Core.csproj" />
+</Solution>
