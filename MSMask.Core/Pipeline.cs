@@ -2,6 +2,7 @@
 using MSMask.Core.Lines;
 using MSMask.Core.Masking;
 using MSMask.Core.Models;
+using MSMask.Core.Ner;
 using MSMask.Core.Ocr;
 using MSMask.Core.Patterns;
 using SkiaSharp;
@@ -9,7 +10,7 @@ using SkiaSharp;
 namespace MSMask.Core
 {
     /// <summary>
-    /// Runs the whole detection process on an image: OCR, line building, pattern matching and masking.
+    /// Runs the whole detection process on an image: OCR, line building, pattern matching, optional NER and masking.
     /// </summary>
     /// <remarks>
     /// <para>
@@ -18,7 +19,8 @@ namespace MSMask.Core
     /// </para>
     /// <para>
     /// The duration of every stage is recorded in <see cref="PipelineResult.TimingsMs"/> under the keys
-    /// <c>"ocr"</c>, <c>"lines"</c>, <c>"patterns"</c>, <c>"mask"</c> (only when masking) and <c>"total"</c>.
+    /// <c>"ocr"</c>, <c>"lines"</c>, <c>"patterns"</c>, <c>"ner"</c> (only with NER), <c>"mask"</c> (only when
+    /// masking) and <c>"total"</c>.
     /// </para>
     /// </remarks>
     public sealed class Pipeline
@@ -36,12 +38,15 @@ namespace MSMask.Core
         /// <see langword="true"/> to validate check digits (TCKN, IBAN, card); <see langword="false"/> to skip
         /// validation, which is only useful for the checksum ablation experiment.
         /// </param>
+        /// <param name="ner">The person name and place detector, or <see langword="null"/> to run without NER.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="engine"/> is <see langword="null"/>.</exception>
-        public Pipeline(IOCREngine engine, bool checksum = true)
+        public Pipeline(IOCREngine engine, bool checksum = true, NerDetector? ner = null)
         {
             ArgumentNullException.ThrowIfNull(engine);
             Engine = engine;
             Checksum = checksum;
+            Ner = ner;
+            SupportedKinds = (ner is null ? Kinds.All.Except(Kinds.NerKinds) : Kinds.All).ToHashSet();
         }
 
         /// <summary>
@@ -55,13 +60,25 @@ namespace MSMask.Core
         public bool Checksum { get; }
 
         /// <summary>
+        /// Gets the person name and place detector.
+        /// </summary>
+        /// <value>The detector, or <see langword="null"/> when the pipeline runs without NER.</value>
+        public NerDetector? Ner { get; }
+
+        /// <summary>
+        /// Gets a short name for the pipeline, used in reports.
+        /// </summary>
+        /// <value>The engine name, followed by <c>"+ner"</c> when NER is on; for example <c>"tesseract+ner"</c>.</value>
+        public string Name => Ner is null ? Engine.Name : Engine.Name + "+ner";
+
+        /// <summary>
         /// Gets the kinds of data this pipeline can detect.
         /// </summary>
         /// <value>
-        /// Every kind except the ones that need the NER model (person names and locations).
+        /// Every kind when NER is on; otherwise every kind except person names and locations.
         /// The evaluation ignores labels of other kinds, so a pipeline is not punished for kinds it cannot detect.
         /// </value>
-        public IReadOnlySet<string> SupportedKinds { get; } = Kinds.All.Except(Kinds.NerKinds).ToHashSet();
+        public IReadOnlySet<string> SupportedKinds { get; }
 
         /// <summary>
         /// Finds the sensitive data in an image without changing it.
@@ -89,6 +106,8 @@ namespace MSMask.Core
 
             cancellationToken.ThrowIfCancellationRequested();
             start = Stopwatch.GetTimestamp();
+            // The character ranges found by the patterns, per line, so that NER does not mask them a second time.
+            var taken = new Dictionary<int, List<TextSpan>>();
             foreach (TextLine line in lines)
             {
                 foreach (PatternMatch match in PatternMatcher.FindMatches(line.Text, Checksum))
@@ -98,9 +117,23 @@ namespace MSMask.Core
                     {
                         result.Detections.Add(new Detection(match.Kind, box.Value, match.Text, PatternSource));
                     }
+                    if (!taken.TryGetValue(line.LineId, out List<TextSpan>? spans))
+                    {
+                        spans = [];
+                        taken[line.LineId] = spans;
+                    }
+                    spans.Add(new TextSpan(match.Start, match.End));
                 }
             }
             result.TimingsMs["patterns"] = Stopwatch.GetElapsedTime(start).TotalMilliseconds;
+
+            if (Ner is not null)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                start = Stopwatch.GetTimestamp();
+                result.Detections.AddRange(await Ner.DetectAsync(lines, taken, cancellationToken).ConfigureAwait(false));
+                result.TimingsMs["ner"] = Stopwatch.GetElapsedTime(start).TotalMilliseconds;
+            }
 
             result.Tokens.AddRange(lines.SelectMany(l => l.Tokens));
             result.TimingsMs["total"] = Stopwatch.GetElapsedTime(totalStart).TotalMilliseconds;

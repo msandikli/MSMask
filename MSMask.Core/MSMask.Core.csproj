@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="SkiaSharp" Version="4.154.0" />
     <PackageReference Include="TesseractOCR" Version="5.5.2" />
+	<PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.31.1" />
   </ItemGroup>
 
 </Project>
