@@ -2,5 +2,6 @@
   <Folder Name="/tests/">
     <Project Path="tests/MSMask.Core.Tests/MSMask.Core.Tests.csproj" />
   </Folder>
+  <Project Path="MSMask.Cli/MSMask.Cli.csproj" Id="33458496-606c-43c6-8546-416205d129fa" />
   <Project Path="MSMask.Core/MSMask.Core.csproj" />
 </Solution>
