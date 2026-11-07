@@ -1,6 +1,5 @@
 ﻿using MSMask.Core.Models;
 using MSMask.Core.Ocr;
-using MSMask.Core.Ocr.MSMask.Core.Ocr;
 using SkiaSharp;
 
 namespace MSMask.Core.Tests
