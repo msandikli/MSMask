@@ -1,5 +1,4 @@
-﻿using global::MSMask.Core.Models;
-using MSMask.Core.Ocr.MSMask.Core.Ocr;
+﻿using MSMask.Core.Models;
 using SkiaSharp;
 using System.Globalization;
 using TesseractOCR;
