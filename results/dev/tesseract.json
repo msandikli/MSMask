@@ -1,0 +1,107 @@
+{
+  "engine": "tesseract",
+  "checksum": true,
+  "dataset": "data/dev/labels.json",
+  "image_count": 150,
+  "kinds": [
+    "TCKN",
+    "TELEFON",
+    "EPOSTA",
+    "IBAN",
+    "KREDI_KARTI",
+    "API_ANAHTARI"
+  ],
+  "iou_threshold": 0.5,
+  "cover_threshold": 0.95,
+  "per_kind": {
+    "TCKN": {
+      "tp": 124,
+      "fp": 0,
+      "fn": 4,
+      "protected": 124,
+      "total": 128,
+      "precision": 1,
+      "recall": 0.96875,
+      "f1": 0.9841269841269841,
+      "protection": 0.96875
+    },
+    "TELEFON": {
+      "tp": 198,
+      "fp": 0,
+      "fn": 3,
+      "protected": 198,
+      "total": 201,
+      "precision": 1,
+      "recall": 0.9850746268656716,
+      "f1": 0.9924812030075187,
+      "protection": 0.9850746268656716
+    },
+    "EPOSTA": {
+      "tp": 219,
+      "fp": 0,
+      "fn": 10,
+      "protected": 217,
+      "total": 229,
+      "precision": 1,
+      "recall": 0.9563318777292577,
+      "f1": 0.9776785714285714,
+      "protection": 0.9475982532751092
+    },
+    "IBAN": {
+      "tp": 147,
+      "fp": 0,
+      "fn": 3,
+      "protected": 147,
+      "total": 150,
+      "precision": 1,
+      "recall": 0.98,
+      "f1": 0.98989898989899,
+      "protection": 0.98
+    },
+    "KREDI_KARTI": {
+      "tp": 149,
+      "fp": 0,
+      "fn": 2,
+      "protected": 149,
+      "total": 151,
+      "precision": 1,
+      "recall": 0.9867549668874173,
+      "f1": 0.9933333333333334,
+      "protection": 0.9867549668874173
+    },
+    "API_ANAHTARI": {
+      "tp": 201,
+      "fp": 13,
+      "fn": 6,
+      "protected": 187,
+      "total": 207,
+      "precision": 0.9392523364485982,
+      "recall": 0.9710144927536232,
+      "f1": 0.9548693586698337,
+      "protection": 0.9033816425120773
+    }
+  },
+  "micro": {
+    "tp": 1038,
+    "fp": 13,
+    "fn": 28,
+    "protected": 1022,
+    "total": 1066,
+    "precision": 0.9876308277830638,
+    "recall": 0.9737335834896811,
+    "f1": 0.9806329711856401,
+    "protection": 0.9587242026266416
+  },
+  "macro_f1": 0.9820647400775386,
+  "latency": {
+    "mean": 863.8905393333337,
+    "median": 802.54935,
+    "p95": 1470.9713599999998,
+    "stages_mean": {
+      "lines": 0.5221053333333335,
+      "ocr": 860.4454146666662,
+      "patterns": 2.8937600000000008
+    }
+  },
+  "config_name": "tesseract"
+}
