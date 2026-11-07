@@ -3,7 +3,7 @@
     /// <summary>
     /// The measured quality and speed of a pipeline on a labeled data set.
     /// </summary>
-    /// <param name="Engine">The name of the OCR engine.</param>
+    /// <param name="Engine">The pipeline name: the OCR engine, followed by "+ner" when NER is on.</param>
     /// <param name="Checksum">Whether check digits were validated.</param>
     /// <param name="Dataset">The path of the label file.</param>
     /// <param name="ImageCount">The number of evaluated images.</param>

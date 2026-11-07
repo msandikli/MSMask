@@ -365,3 +365,5 @@ FodyWeavers.xsd
 /data/
 
 /results/**/*_errors.jsonl
+
+/models/

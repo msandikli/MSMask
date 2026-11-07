@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using MSMask.Core;
+using MSMask.Core.Ner;
 using MSMask.Core.Ocr;
 using SkiaSharp;
 
@@ -9,7 +10,7 @@ namespace MSMask.Cli
     /// The <c>mask</c> command: masks one image and saves the result.
     /// </summary>
     /// <remarks>
-    /// Usage: <c>mask &lt;input&gt; &lt;output&gt; [--engine tesseract] [--no-checksum]</c>.
+    /// Usage: <c>mask &lt;input&gt; &lt;output&gt; [--engine tesseract] [--no-checksum] [--ner] [--ner-model dir]</c>.
     /// The output format follows the output file extension (<c>.png</c>, <c>.jpg</c>/<c>.jpeg</c> or <c>.webp</c>).
     /// </remarks>
     public static class MaskCommand
@@ -23,21 +24,25 @@ namespace MSMask.Cli
         public static async Task<int> RunAsync(IReadOnlyList<string> args)
         {
             CommandLineArguments parsed = CommandLineArguments.Parse(args,
-                flagNames: new HashSet<string> { "--no-checksum" },
-                valueNames: new HashSet<string> { "--engine" });
+                flagNames: new HashSet<string> { "--no-checksum", "--ner" },
+                valueNames: new HashSet<string> { "--engine", "--ner-model" });
             if (parsed.Positionals.Count != 2)
             {
-                Console.Error.WriteLine("Usage: mask <input> <output> [--engine tesseract] [--no-checksum]");
+                Console.Error.WriteLine("Usage: mask <input> <output> [--engine tesseract] [--no-checksum] [--ner] [--ner-model dir]");
                 return 2;
             }
             string input = parsed.Positionals[0];
             string output = parsed.Positionals[1];
             SKEncodedImageFormat format = FormatFor(output);
 
+            using BertEntityRecognizer? recognizer = parsed.Flags.Contains("--ner")
+                ? new BertEntityRecognizer(parsed.Value("--ner-model"))
+                : null;
             IOCREngine engine = EngineFactory.Create(parsed.Value("--engine", "tesseract")!);
             try
             {
-                var pipeline = new Pipeline(engine, checksum: !parsed.Flags.Contains("--no-checksum"));
+                var pipeline = new Pipeline(engine, checksum: !parsed.Flags.Contains("--no-checksum"),
+                    ner: recognizer is null ? null : new NerDetector(recognizer));
                 using SKBitmap image = SKBitmap.Decode(input)
                     ?? throw new InvalidDataException($"The image '{input}' could not be decoded.");
                 using MaskedImage masked = await pipeline.MaskAsync(image);

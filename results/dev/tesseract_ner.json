@@ -1,0 +1,132 @@
+{
+  "engine": "tesseract+ner",
+  "checksum": true,
+  "dataset": "data/dev/labels.json",
+  "image_count": 150,
+  "kinds": [
+    "TCKN",
+    "TELEFON",
+    "EPOSTA",
+    "IBAN",
+    "KREDI_KARTI",
+    "API_ANAHTARI",
+    "KISI_ADI",
+    "KONUM"
+  ],
+  "iou_threshold": 0.5,
+  "cover_threshold": 0.95,
+  "per_kind": {
+    "TCKN": {
+      "tp": 124,
+      "fp": 0,
+      "fn": 4,
+      "protected": 124,
+      "total": 128,
+      "precision": 1,
+      "recall": 0.96875,
+      "f1": 0.9841269841269841,
+      "protection": 0.96875
+    },
+    "TELEFON": {
+      "tp": 198,
+      "fp": 0,
+      "fn": 3,
+      "protected": 198,
+      "total": 201,
+      "precision": 1,
+      "recall": 0.9850746268656716,
+      "f1": 0.9924812030075187,
+      "protection": 0.9850746268656716
+    },
+    "EPOSTA": {
+      "tp": 219,
+      "fp": 0,
+      "fn": 10,
+      "protected": 217,
+      "total": 229,
+      "precision": 1,
+      "recall": 0.9563318777292577,
+      "f1": 0.9776785714285714,
+      "protection": 0.9475982532751092
+    },
+    "IBAN": {
+      "tp": 147,
+      "fp": 0,
+      "fn": 3,
+      "protected": 147,
+      "total": 150,
+      "precision": 1,
+      "recall": 0.98,
+      "f1": 0.98989898989899,
+      "protection": 0.98
+    },
+    "KREDI_KARTI": {
+      "tp": 149,
+      "fp": 0,
+      "fn": 2,
+      "protected": 149,
+      "total": 151,
+      "precision": 1,
+      "recall": 0.9867549668874173,
+      "f1": 0.9933333333333334,
+      "protection": 0.9867549668874173
+    },
+    "API_ANAHTARI": {
+      "tp": 201,
+      "fp": 13,
+      "fn": 6,
+      "protected": 188,
+      "total": 207,
+      "precision": 0.9392523364485982,
+      "recall": 0.9710144927536232,
+      "f1": 0.9548693586698337,
+      "protection": 0.9082125603864735
+    },
+    "KISI_ADI": {
+      "tp": 551,
+      "fp": 33,
+      "fn": 57,
+      "protected": 547,
+      "total": 608,
+      "precision": 0.9434931506849316,
+      "recall": 0.90625,
+      "f1": 0.924496644295302,
+      "protection": 0.899671052631579
+    },
+    "KONUM": {
+      "tp": 210,
+      "fp": 48,
+      "fn": 18,
+      "protected": 215,
+      "total": 228,
+      "precision": 0.813953488372093,
+      "recall": 0.9210526315789473,
+      "f1": 0.8641975308641974,
+      "protection": 0.9429824561403509
+    }
+  },
+  "micro": {
+    "tp": 1799,
+    "fp": 94,
+    "fn": 103,
+    "protected": 1785,
+    "total": 1902,
+    "precision": 0.9503433703116746,
+    "recall": 0.9458464773922187,
+    "f1": 0.9480895915678523,
+    "protection": 0.9384858044164038
+  },
+  "macro_f1": 0.9601353269530915,
+  "latency": {
+    "mean": 1424.952234,
+    "median": 1173.6403,
+    "p95": 3075.8845299999966,
+    "stages_mean": {
+      "lines": 0.4592773333333328,
+      "ner": 716.9975833333335,
+      "ocr": 703.9991426666664,
+      "patterns": 3.4650953333333336
+    }
+  },
+  "config_name": "tesseract+ner"
+}

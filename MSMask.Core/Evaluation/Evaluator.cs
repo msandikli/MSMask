@@ -125,7 +125,7 @@ namespace MSMask.Core.Evaluation
                 micro.Add(kindStats);
             }
             var report = new EvaluationReport(
-                Engine: pipeline.Engine.Name,
+                Engine: pipeline.Name,
                 Checksum: pipeline.Checksum,
                 Dataset: labels.Path,
                 ImageCount: done,

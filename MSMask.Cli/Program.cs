@@ -66,8 +66,8 @@ namespace MSMask.Cli
         {
             Console.WriteLine("MSMask - masks sensitive data in screenshots");
             Console.WriteLine();
-            Console.WriteLine("  mask <input> <output> [--engine tesseract] [--no-checksum]");
-            Console.WriteLine("  eval <labels.json> [--engine tesseract] [--no-checksum] [--all-kinds] [--limit N] [--out prefix]");
+            Console.WriteLine("  mask <input> <output> [--engine tesseract] [--no-checksum] [--ner] [--ner-model dir]");
+            Console.WriteLine("  eval <labels.json> [--engine tesseract] [--no-checksum] [--ner] [--ner-model dir] [--all-kinds] [--limit N] [--out prefix]");
         }
     }
 }
